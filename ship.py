@@ -9,6 +9,7 @@ class Ship:
         # 加载飞船图像并获取其外形接近矩形
         self.image = pygame.image.load('images/ship.bmp')
         self.rect = self.image.get_rect()
+        # 获取屏幕矩形
         self.screen_rect = screen.get_rect()
         # 将每搜飞船放在屏幕底部中央
         self.rect.centerx = self.screen_rect.centerx
@@ -22,9 +23,9 @@ class Ship:
     def update(self):
         """根据移动标准调整飞船位置"""
         # 更新飞船的center值，而不是rect
-        if self.moving_right:
+        if self.moving_right and self.rect.right < self.screen_rect.right:
             self.center += self.ai_settings.ship_speed_factor
-        if self.moving_left:
+        if self.moving_left and self.rect.left > 0:
             self.center -= self.ai_settings.ship_speed_factor
         # 根据self.center更新rect对象
         self.rect.centerx = self.center
