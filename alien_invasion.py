@@ -20,10 +20,9 @@ def run_game():
     # 开始游戏主循环
     while True:
         # 监视键盘和鼠标
-
         gf.check_events(ai_settings, screen, ship, bullets)
         ship.update()
-        bullets.update()
+        gf.update_bullets(bullets)
         # 每次循环刷新屏幕,并让绘制的屏幕可见
         gf.update_screen(ai_settings, screen, ship, bullets)
 

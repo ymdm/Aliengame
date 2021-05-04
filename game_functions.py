@@ -12,9 +12,10 @@ def check_keydown_event(event, ai_settings, screen, ship, bullets):
         # 向左移动飞船
         ship.moving_left = True
     elif event.key == pygame.K_SPACE:
-        # 创建一颗子弹，并将其加入到编组bullets中
-        new_bullet = Bullet(ai_settings, screen, ship)
-        bullets.add(new_bullet)
+        fire_bullet(ai_settings, screen, ship, bullets)
+    elif event.key == pygame.K_q:
+        # 按Q建退出游戏
+        sys.exit()
 
 
 def check_keyup_event(event, ship):
@@ -38,10 +39,25 @@ def check_events(ai_settings, screen, ship, bullets):
 
 def update_screen(ai_settings, screen, ship, bullets):
     """刷新屏幕函数"""
-    # 每次循环刷新屏幕
+    # 每次循环刷新屏幕，显示子弹与飞船位置
     screen.fill(ai_settings.bg_color)
     for bullet in bullets.sprites():
         bullet.draw_bullet()
     ship.blitme()
     # 最近绘制的屏幕可见
     pygame.display.flip()
+
+
+def update_bullets(bullets):
+    # 删除消失的子弹,并更新子弹坐标
+    bullets.update()
+    for bullet in bullets.copy():
+        if bullet.rect.y <= 0:
+            bullets.remove(bullet)
+
+
+def fire_bullet(ai_settings, screen, ship, bullets):
+    # 创建一颗子弹，并将其加入到编组bullets中,创建前先检测子弹是否超过数量限制
+    if len(bullets) < ai_settings.bullet_allows:
+        new_bullet = Bullet(ai_settings, screen, ship)
+        bullets.add(new_bullet)

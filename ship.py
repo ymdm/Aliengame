@@ -20,6 +20,7 @@ class Ship:
         self.moving_right = False
         self.moving_left = False
 
+
     def update(self):
         """根据移动标准调整飞船位置"""
         # 更新飞船的center值，而不是rect
