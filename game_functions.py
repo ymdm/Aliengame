@@ -37,13 +37,14 @@ def check_events(ai_settings, screen, ship, bullets):
             check_keyup_event(event, ship)
 
 
-def update_screen(ai_settings, screen, ship, bullets):
+def update_screen(ai_settings, screen, ship, bullets,alien):
     """刷新屏幕函数"""
     # 每次循环刷新屏幕，显示子弹与飞船位置
     screen.fill(ai_settings.bg_color)
     for bullet in bullets.sprites():
         bullet.draw_bullet()
     ship.blitme()
+    alien.blitme()
     # 最近绘制的屏幕可见
     pygame.display.flip()
 

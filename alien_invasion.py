@@ -4,6 +4,7 @@ from settings import Settings
 from ship import Ship
 import game_functions as gf
 from pygame.sprite import Group
+from alien import Alien
 
 
 def run_game():
@@ -15,6 +16,8 @@ def run_game():
     pygame.display.set_caption("Alien Invasion")
     # 创建一艘飞船
     ship = Ship(ai_settings, screen)
+    # 创建一个外星人
+    alien = Alien(ai_settings, screen)
     # 创建存子弹的编组
     bullets = Group()
     # 开始游戏主循环
@@ -24,7 +27,7 @@ def run_game():
         ship.update()
         gf.update_bullets(bullets)
         # 每次循环刷新屏幕,并让绘制的屏幕可见
-        gf.update_screen(ai_settings, screen, ship, bullets)
+        gf.update_screen(ai_settings, screen, ship, bullets, alien)
 
 
 run_game()
